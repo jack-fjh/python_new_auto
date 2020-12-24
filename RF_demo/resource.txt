@@ -1,0 +1,27 @@
+*** Settings ***
+Documentation       公共操作-登录
+Library             SeleniumLibrary
+
+*** Variables ***   #自定义变量
+${LoginURL}         http://49.233.108.117:3000/signin
+${username}         testuser1
+${passwd}           123456
+
+*** Keywords ***    #自定义关键字
+用户登录到系统
+#    [Arguments]     ${username}     ${passwd}   #如果这里打开的话，需要在调用时传入值
+    Open Browser    ${LoginURL}       chrome
+    Input Text      id:name      ${username}
+    Input Password  id:pass     ${passwd}
+    Click Element   css:div [class="form-actions"]>input
+    ${usernametext}         Get Text        css:div .user_name>a
+    [Return]            ${usernametext}
+用户发帖
+    Click Element   css:div .inner>#create_topic_btn>span
+    Click Element   css:div #create_topic_form #tab-value [value="share"]
+    Input Text      css:div #create_topic_form>fieldset .span9      hello world
+    Set Focus To Element    css:div .CodeMirror-scroll .CodeMirror-code>pre
+    Press Keys      css:div .CodeMirror-scroll .CodeMirror-code>pre     123456
+    Click Element   css:div .editor_buttons>input
+
+

@@ -1,0 +1,3 @@
+*** Test Cases ***;${username};${password}
+;user1;123456
+;${empty};123456
